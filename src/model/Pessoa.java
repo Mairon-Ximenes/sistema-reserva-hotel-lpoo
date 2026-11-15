@@ -9,7 +9,7 @@ public abstract class Pessoa implements Verificavel {
     private Endereco endereco;
 
 
-    // ===============
+    // ===============Construtor===============
     public Pessoa(String nome, String rg, String cpf, String celular, String dtNascimento, Endereco endereco) {
         this.nome = nome;
         this.rg = rg;
