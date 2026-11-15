@@ -8,17 +8,18 @@ public abstract class Pessoa implements Verificavel {
     private String nome, rg, cpf, celular, dtNascimento;
     private Endereco endereco;
 
+
+    // ===============
     public Pessoa(String nome, String rg, String cpf, String celular, String dtNascimento, Endereco endereco) {
         this.nome = nome;
         this.rg = rg;
-        if(validar(cpf)) this.cpf = cpf;
-        else solicitarNovo();
+        setCpf(cpf);
         this.celular = celular;
         this.dtNascimento = dtNascimento;
         this.endereco = endereco;
     }
 
-    // ==============Getters e setters==============
+    // ===============Getters e setters===============
     public String getNome() {
         return nome;
     }
@@ -40,7 +41,8 @@ public abstract class Pessoa implements Verificavel {
     }
 
     public void setCpf(String cpf) {
-        this.cpf = cpf;
+        if (validar(cpf)) this.cpf = cpf;
+        else solicitarNovo();
     }
 
     public String getCelular() {
@@ -67,22 +69,22 @@ public abstract class Pessoa implements Verificavel {
         this.endereco = endereco;
     }
 
-    // ==============Métodos==============
+    // ===============Métodos===============
 
     @Override
     public boolean validar(String codigo) {
         codigo = codigo.replace(".", "").replace("-", "");
-        return codigo.length() == 11;
+        return codigo.matches("\\d{11}");
     }
 
     @Override
-    public void solicitarNovo(Scanner sc) {
-        while(true){
+    public void solicitarNovo() {
+        Scanner sc = new Scanner(System.in);
+        String cpf_novo = "";
+        do {
             System.out.print("\nCPF inválido. Por favor, digite um CPF válido: ");
-            String cpf_novo = sc.nextLine();
-            if(validar(cpf_novo)){
-                break;
-            }
-        }
+            cpf_novo = sc.nextLine();
+        } while (!validar(cpf_novo));
+        this.cpf = cpf_novo;
     }
 }
