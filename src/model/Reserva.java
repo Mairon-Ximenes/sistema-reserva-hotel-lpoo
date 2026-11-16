@@ -2,7 +2,14 @@ package model;
 
 import exception.ReservaException;
 
+/**
+ * Representa a reserva de um quarto por um hóspede.
+ * Implementa Comparable para que as reservas possam ser ordenadas
+ * pelo nome do hóspede (usado em Collections.sort no comprovante).
+ */
+
 public class Reserva implements Comparable<Reserva>{
+    // Atributo da classe (static): contador compartilhado que gera o número das reservas
     private static int contadorReservas = 1; // atributo da classe
     private int numReserva;
     private Hospede hospede;
@@ -12,6 +19,12 @@ public class Reserva implements Comparable<Reserva>{
     private int qntdHospedes;
 
     // ===============Construtor===============
+/**
+ * Cria uma reserva, validando as regras de negócio antes.
+ * Se alguma regra for violada, lança ReservaException e a reserva NÃO é criada.
+ * Se tudo estiver certo, o quarto é marcado como indisponível.
+ **/
+
     public Reserva(Hospede hospede, Quarto quarto,
                    String dataCheckIn, int qntdDias, int qntdHospedes) throws ReservaException {
 
@@ -35,14 +48,15 @@ public class Reserva implements Comparable<Reserva>{
         this.qntdDias = qntdDias;
         this.qntdHospedes = qntdHospedes;
 
-        quarto.setDisponivel(false);
+        quarto.setDisponivel(false); // Quarto fica ocupado.
     }
 
-
+    // Calculo valor da hospedagem.
     public double calcularValorTotal() { //Custo da hospedagem
         return qntdDias * quarto.getValorDiaria();
     }
 
+    // Organiza o nome dos hóspedes em ordem alfabética, ignorando diferença entre maiúsculas e minúsculas.
     @Override
     public int compareTo (Reserva outro) { // Ordenar o nome dos hospedes em ordem alfabética
         return this.hospede.getNome().compareToIgnoreCase(outro.getHospede().getNome());

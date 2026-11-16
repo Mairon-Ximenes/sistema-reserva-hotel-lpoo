@@ -60,10 +60,11 @@ public class Quarto {
         this.valorDiaria = valorDiaria;
     }
 
+    // Retorna true se o quarto estiver livre para reserva.
     public boolean isDisponivel() {
         return disponivel;
     }
-
+    // Altera a situação do quarto (a classe Reserva usa para marcá-lo como ocupado).
     public void setDisponivel(boolean disponivel) {
         this.disponivel = disponivel;
     }
