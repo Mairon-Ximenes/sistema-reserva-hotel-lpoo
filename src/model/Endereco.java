@@ -1,8 +1,18 @@
 package model;
 
+/**
+ * Representa um endereço, usado tanto pelo hotel quanto pelos hóspedes.
+ * Possui dois construtores (sobrecarga): um completo e outro simplificado,
+ * que recebe apenas a cidade.
+ */
+
 public class Endereco {
     private String rua, bairro, cidade, cep;
     private int num;
+
+    /**
+     * Construtor completo: usado quando todos os dados do endereço são conhecidos.
+     */
 
     public Endereco(String rua, String bairro, String cidade, String cep, int num) {
         this.rua = rua;
@@ -11,6 +21,11 @@ public class Endereco {
         this.cep = cep;
         this.num = num;
     }
+
+    /**
+     * Construtor simplificado: usado quando só a cidade é informada
+     * (ex.: cadastro rápido de hóspede). Os demais campos ficam nulos/zero.
+     */
 
     public Endereco(String cidade) {
         this.cidade = cidade;
@@ -55,6 +70,12 @@ public class Endereco {
     public void setNum(int num) {
         this.num = num;
     }
+
+    /**
+     * Retorna o endereço como texto.
+     * Se a rua for nula (endereço criado só com a cidade), devolve apenas a cidade;
+     * caso contrário, devolve o endereço completo formatado.
+     */
 
     @Override
     public String toString() {
