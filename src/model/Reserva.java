@@ -3,6 +3,7 @@ package model;
 import exception.ReservaException;
 
 public class Reserva implements Comparable<Reserva>{
+    private static int contadorReservas = 1; // atributo da classe
     private int numReserva;
     private Hospede hospede;
     private Quarto quarto;
@@ -11,7 +12,7 @@ public class Reserva implements Comparable<Reserva>{
     private int qntdHospedes;
 
     // ===============Construtor===============
-    public Reserva(int numReserva, Hospede hospede, Quarto quarto,
+    public Reserva(Hospede hospede, Quarto quarto,
                    String dataCheckIn, int qntdDias, int qntdHospedes) throws ReservaException {
 
         if (!quarto.isDisponivel()) { // Se o quarto solicitado não estiver disponível
@@ -27,7 +28,7 @@ public class Reserva implements Comparable<Reserva>{
             throw new ReservaException("A quantidade de dias deve ser maior que zero");
         }
 
-        this.numReserva = numReserva;
+        this.numReserva = contadorReservas++;
         this.hospede = hospede;
         this.quarto = quarto;
         this.dataCheckIn = dataCheckIn;

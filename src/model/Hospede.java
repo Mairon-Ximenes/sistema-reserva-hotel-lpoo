@@ -1,13 +1,15 @@
 package model;
 
+
 public class Hospede extends Pessoa{
+    private static int contadorHospedes = 1; // atributo da classe
     private int codHospede;
     private String email;
 
     // ===============Construtor===============
-    public Hospede(String nome, String rg, String cpf, String celular, String dtNascimento, Endereco endereco, int codHospede, String email) {
+    public Hospede(String nome, String rg, String cpf, String celular, String dtNascimento, Endereco endereco, String email) {
         super(nome, rg, cpf, celular, dtNascimento, endereco);
-        this.codHospede = codHospede;
+        this.codHospede = contadorHospedes++; // gera 1, 2, 3... sozinho
         this.email = email;
     }
 

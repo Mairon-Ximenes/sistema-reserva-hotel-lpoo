@@ -7,7 +7,9 @@ public class Hotel {
     private String codHotel;
     private String nomeHotel;
     private Endereco endereco;
+    // hotel gerencia os quartos e hospedes
     private List<Quarto> quartos = new ArrayList<>();
+    private List<Hospede> hospedes = new ArrayList<>();
 
     // ===============Construtor===============
     public Hotel(String codHotel, String nomeHotel, Endereco endereco) {
@@ -45,9 +47,18 @@ public class Hotel {
         return quartos;
     }
 
-    // ===============Métodos===============
-    public void adicionarQuarto (Quarto novoQuarto) {
+    // =============== Métodos de Quarto ===============
+    public void adicionarQuarto(Quarto novoQuarto) {
         quartos.add(novoQuarto);
+    }
+
+    public Quarto buscarQuarto(int numQuarto) {
+        for (Quarto q : quartos) {
+            if (q.getNumQuarto() == numQuarto) {
+                return q;
+            }
+        }
+        return null;
     }
 
     public void listarQuartosDisponiveis() {
@@ -64,12 +75,28 @@ public class Hotel {
         }
     }
 
-    public Quarto buscarQuarto(int numQuarto) {
-        for (Quarto q : quartos) {
-            if (q.getNumQuarto() == numQuarto) {
-                return q;
+    // =============== Métodos de Hóspede ===============
+    public void adicionarHospede(Hospede novoHospede) {
+        hospedes.add(novoHospede);
+    }
+
+    public Hospede buscarHospede(int codHospede) {
+        for (Hospede h : hospedes) {
+            if (h.getCodHospede() == codHospede) {
+                return h;
             }
         }
         return null;
+    }
+
+    public void listarHospedes() {
+        if (hospedes.isEmpty()) {
+            System.out.println("Nenhum hóspede cadastrado.");
+            return;
+        }
+        for (Hospede h : hospedes) {
+            System.out.println(h);
+            System.out.println("-----------------------------");
+        }
     }
 }

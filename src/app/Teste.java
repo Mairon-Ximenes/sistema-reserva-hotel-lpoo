@@ -22,19 +22,15 @@ public class Teste {
         hotel.adicionarQuarto(new Quarto(201, "Suíte Luxo", 4, 520.00, true));
         hotel.adicionarQuarto(new Quarto(202, "Família", 5, 600.00, true));
 
-        List<Hospede> hospedes = new ArrayList<>();
-        Hospede h1 = new Hospede("Carlos Silva", "1234567", "111.222.333-44", "6799999-1111", "10/05/1995", endHotel, 1, "carlos@email.com");
-        Hospede h2 = new Hospede("Ana Souza", "7654321", "555.666.777-88", "6798888-2222", "22/08/1998", endSimples, 2, "ana@email.com");
-        hospedes.add(h1);
-        hospedes.add(h2);
+        hotel.adicionarHospede(new Hospede("Carlos Silva", "1234567", "111.222.333-44", "6799999-1111", "10/05/1995", endHotel, "carlos@email.com"));
+        hotel.adicionarHospede(new Hospede("Ana Souza", "7654321", "555.666.777-88", "6798888-2222", "22/08/1998", endSimples,  "ana@email.com"));
 
         ComprovanteReserva<String> comprovante = new ComprovanteReserva<>("COMP-2026-01", hotel);
-        int proximoCodHospede = 3;
         int proximoNumReserva = 1;
 
         // Deixa 1 reserva inicial pronta (Quarto 101 já começa ocupado)
         try {
-            Reserva rInicial = new Reserva(proximoNumReserva++, h1, hotel.buscarQuarto(101), "15/11/2026", 3, 1);
+            Reserva rInicial = new Reserva(hotel.buscarHospede(1),hotel.buscarQuarto(101), "15/11/2026", 3, 1);
             comprovante.adicionarReserva(rInicial);
         } catch (ReservaException e) {
             System.out.println("Erro ao inicializar reserva: " + e.getMessage());
@@ -60,10 +56,7 @@ public class Teste {
             switch (opcao) {
                 case 1:
                     System.out.println("\n--- HÓSPEDES CADASTRADOS ---");
-                    for (Hospede h : hospedes) {
-                        System.out.println(h);
-                        System.out.println("-----------------------------");
-                    }
+                    hotel.listarHospedes();
                     break;
 
                 case 2:
@@ -94,30 +87,22 @@ public class Teste {
                     String email = sc.nextLine();
 
                     Endereco endNovo = new Endereco(cidade);
-                    // Se o CPF for inválido, Pessoa.solicitarNovo() entra em ação automaticamente
-                    Hospede novoHospede = new Hospede(nome, rg, cpf, celular, dtNasc, endNovo, proximoCodHospede++, email);
-                    hospedes.add(novoHospede);
+                    // Se o CPF for inválido, metodo de solicitar novo entra em ação automaticamente
+                    Hospede novoHospede = new Hospede(nome, rg, cpf, celular, dtNasc, endNovo, email);
+                    hotel.adicionarHospede(novoHospede);
                     System.out.println("Hóspede cadastrado com sucesso! Código: " + novoHospede.getCodHospede());
                     break;
 
                 case 5:
                     System.out.println("\n--- NOVA RESERVA ---");
                     System.out.println("Hóspedes disponíveis:");
-                    for (Hospede h : hospedes) {
-                        System.out.println("Cód: " + h.getCodHospede() + " - " + h.getNome());
-                    }
+
+                    hotel.listarHospedes();
                     System.out.print("Digite o código do hóspede: ");
                     int codBusca = sc.nextInt();
                     sc.nextLine();
 
-                    Hospede hospedeEscolhido = null;
-                    for (Hospede h : hospedes) {
-                        if (h.getCodHospede() == codBusca) {
-                            hospedeEscolhido = h;
-                            break;
-                        }
-                    }
-
+                    Hospede hospedeEscolhido = hotel.buscarHospede(codBusca);
                     if (hospedeEscolhido == null) {
                         System.out.println("Hóspede não encontrado!");
                         break;
@@ -145,7 +130,7 @@ public class Teste {
                     sc.nextLine();
 
                     try {
-                        Reserva novaReserva = new Reserva(proximoNumReserva, hospedeEscolhido, quartoEscolhido, checkIn, dias, qtdPessoas);
+                        Reserva novaReserva = new Reserva(hospedeEscolhido, quartoEscolhido, checkIn, dias, qtdPessoas);
                         comprovante.adicionarReserva(novaReserva);
                         proximoNumReserva++;
                         System.out.printf("Reserva #%d confirmada! Valor total: R$ %.2f%n",
