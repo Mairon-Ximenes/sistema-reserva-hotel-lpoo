@@ -1,5 +1,10 @@
 package model;
 
+/**
+ * Representa um quarto do hotel, com tipo, capacidade, valor da diária
+ * e situação (disponível ou ocupado).
+ */
+
 public class Quarto {
     private int numQuarto;
     private String tipo;
@@ -7,13 +12,19 @@ public class Quarto {
     private double valorDiaria;
     private boolean disponivel;
 
+    /**
+     * Cria um quarto.
+     * Obs.: o parâmetro "disponivel" é recebido, mas o quarto sempre começa
+     * como disponível (this.disponivel = true), independentemente do valor passado.
+     */
+
     // ===============Construtor===============
     public Quarto(int numQuarto, String tipo, int capacidade, double valorDiaria, boolean disponivel) {
         this.numQuarto = numQuarto;
         this.tipo = tipo;
         this.capacidade = capacidade;
         this.valorDiaria = valorDiaria;
-        this.disponivel = true;
+        this.disponivel = true; // Todo quarto começa livre.
     }
 
     // ===============Getters e Setters===============
