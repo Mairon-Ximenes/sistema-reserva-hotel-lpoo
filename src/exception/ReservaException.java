@@ -1,4 +1,7 @@
 package exception;
 
-public class ReservaException {
+public class ReservaException extends Exception{
+    public ReservaException(String mensagem) {
+        super(mensagem);
+    }
 }
