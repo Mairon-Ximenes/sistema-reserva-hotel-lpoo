@@ -4,11 +4,21 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * Comprovante que reúne as reservas de um hotel e calcula o valor total.
+ * É uma classe genérica: o tipo T do número do comprovante é definido
+ * na hora de criar o objeto (ex.: String, Integer).
+ * */
+
 public class ComprovanteReserva<T> {
     private T numComprovante;
     private Hotel hotel;
     private final List<Reserva> listaReservas = new ArrayList<>();
     private double valorTotal;
+
+    /**
+     * Cria um comprovante vazio, com valor total zerado.
+     */
 
     public ComprovanteReserva(T numComprovante, Hotel hotel) {
         this.numComprovante = numComprovante;
@@ -16,27 +26,30 @@ public class ComprovanteReserva<T> {
         this.valorTotal = 0.0;
     }
 
+    /**
+     * Adiciona uma reserva ao comprovante e soma o valor dela ao total.
+     */
+
     public void adicionarReserva (Reserva r) {
         listaReservas.add(r);
         this.valorTotal += r.calcularValorTotal();
     }
 
+    /**
+     * Imprime o comprovante no console: dados do hotel, cada reserva
+     * (ordenadas pelo nome do hóspede) e o valor total.
+     */
+
     public void imprimirComprovante() {
-        Collections.sort(listaReservas);
+        Collections.sort(listaReservas); // ordena usando o compareTo() de Reserva (ordem alfabética do nome do hóspede)
 
         System.out.println("=================================================");
         System.out.println("        COMPROVANTE DE RESERVA");
         System.out.println("=================================================");
         System.out.println("Nº Comprovante: " + numComprovante);
 
-
-        if (hotel != null) {
-            System.out.println("Hotel: " + hotel.getNomeHotel());
-            System.out.println("Endereço: " + hotel.getEndereco());
-        }
-
         System.out.println("-------------------------------------------------");
-        System.out.println("Reservas (ordenadas por nome do hóspede):");
+        System.out.println("Reservas:");
         System.out.println("-------------------------------------------------");
 
         for (Reserva r : listaReservas) {
@@ -82,6 +95,11 @@ public class ComprovanteReserva<T> {
     }
 
     // ===============Métodos===============
+
+    /**
+     * Lista no console os quartos ocupados, ou seja, os quartos das
+     * reservas registradas, mostrando quem os ocupa e por quantos dias.
+     */
     public void listarQuartosOcupados() {
         if (listaReservas.isEmpty()) {
             System.out.println("Nenhum quarto ocupado no momento.");
