@@ -26,7 +26,6 @@ public class Teste {
         hotel.adicionarHospede(new Hospede("Ana Souza", "7654321", "555.666.777-88", "6798888-2222", "22/08/1998", endSimples,  "ana@email.com"));
 
         ComprovanteReserva<String> comprovante = new ComprovanteReserva<>("COMP-2026-01", hotel);
-        int proximoNumReserva = 1;
 
         // Deixa 1 reserva inicial pronta (Quarto 101 já começa ocupado)
         try {
@@ -132,7 +131,6 @@ public class Teste {
                     try {
                         Reserva novaReserva = new Reserva(hospedeEscolhido, quartoEscolhido, checkIn, dias, qtdPessoas);
                         comprovante.adicionarReserva(novaReserva);
-                        proximoNumReserva++;
                         System.out.printf("Reserva #%d confirmada! Valor total: R$ %.2f%n",
                                 novaReserva.getNumReserva(), novaReserva.calcularValorTotal());
                     } catch (ReservaException e) {

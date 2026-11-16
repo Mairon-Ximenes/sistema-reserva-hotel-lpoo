@@ -55,4 +55,12 @@ public class Endereco {
     public void setNum(int num) {
         this.num = num;
     }
+
+    @Override
+    public String toString() {
+        if (rua == null) {
+            return cidade;
+        }
+        return rua + ", " + num + " - " + bairro + ", " + cidade + " (CEP: " + cep + ")";
+    }
 }
