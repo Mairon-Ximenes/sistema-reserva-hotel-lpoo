@@ -41,7 +41,35 @@ public class Hotel {
         this.endereco = endereco;
     }
 
+    public List<Quarto> getQuartos() {
+        return quartos;
+    }
+
+    // ===============Métodos===============
     public void adicionarQuarto (Quarto novoQuarto) {
         quartos.add(novoQuarto);
+    }
+
+    public void listarQuartosDisponiveis() {
+        boolean achou = false;
+        for (Quarto q : quartos) {
+            if (q.isDisponivel()) {
+                System.out.printf("Quarto %d | Tipo: %s | Capacidade: %d pessoa(s) | Diária: R$ %.2f%n",
+                        q.getNumQuarto(), q.getTipo(), q.getCapacidade(), q.getValorDiaria());
+                achou = true;
+            }
+        }
+        if (!achou) {
+            System.out.println("Nenhum quarto disponível no momento.");
+        }
+    }
+
+    public Quarto buscarQuarto(int numQuarto) {
+        for (Quarto q : quartos) {
+            if (q.getNumQuarto() == numQuarto) {
+                return q;
+            }
+        }
+        return null;
     }
 }

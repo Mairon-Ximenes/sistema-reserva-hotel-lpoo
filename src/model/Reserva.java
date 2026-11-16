@@ -23,7 +23,7 @@ public class Reserva implements Comparable<Reserva>{
                     quarto.getCapacidade() + ")");
         }
 
-        if (qntdDias <= 0) { // Se o quantidade de dias de hospadagem for negativo ou igual a zero
+        if (qntdDias <= 0) { // Se a quantidade de dias de hospadagem for negativo ou igual a zero
             throw new ReservaException("A quantidade de dias deve ser maior que zero");
         }
 

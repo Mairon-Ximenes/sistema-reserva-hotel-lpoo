@@ -7,7 +7,7 @@ import java.util.List;
 public class ComprovanteReserva<T> {
     private T numComprovante;
     private Hotel hotel;
-    private List<Reserva> listaReservas = new ArrayList<>();
+    private final List<Reserva> listaReservas = new ArrayList<>();
     private double valorTotal;
 
     public ComprovanteReserva(T numComprovante, Hotel hotel) {
@@ -81,6 +81,21 @@ public class ComprovanteReserva<T> {
         return valorTotal;
     }
 
+    // ===============Métodos===============
+    public void listarQuartosOcupados() {
+        if (listaReservas.isEmpty()) {
+            System.out.println("Nenhum quarto ocupado no momento.");
+            return;
+        }
+        for (Reserva r : listaReservas) {
+            System.out.printf("Quarto %d (%s) -> Ocupado por: %s (Check-in: %s | %d dia(s))%n",
+                    r.getQuarto().getNumQuarto(),
+                    r.getQuarto().getTipo(),
+                    r.getHospede().getNome(),
+                    r.getDataCheckIn(),
+                    r.getQntdDias());
+        }
+    }
 }
 
 

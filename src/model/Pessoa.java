@@ -13,6 +13,7 @@ public abstract class Pessoa implements Verificavel {
     public Pessoa(String nome, String rg, String cpf, String celular, String dtNascimento, Endereco endereco) {
         this.nome = nome;
         this.rg = rg;
+        // valida o cpf antes de atribuir
         setCpf(cpf);
         this.celular = celular;
         this.dtNascimento = dtNascimento;
@@ -71,12 +72,15 @@ public abstract class Pessoa implements Verificavel {
 
     // ===============Métodos===============
 
+    //validação do cpf
     @Override
     public boolean validar(String codigo) {
         codigo = codigo.replace(".", "").replace("-", "");
         return codigo.matches("\\d{11}");
     }
 
+
+    // continua solicitando o cpf até a pessoa escrever um cpf válido
     @Override
     public void solicitarNovo() {
         Scanner sc = new Scanner(System.in);
